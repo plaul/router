@@ -1,5 +1,6 @@
-const URL = "https://jsonplaceholder.typicode.com/users/"
+import{URL} from "./settings.js"
 
+//Observe - NO need for escaping when we are using templates this way
 export function makeRows() {
   fetch(URL).then(r => r.json())
     .then(data => {
