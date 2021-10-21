@@ -72,7 +72,7 @@ function onNavClick(evt) {
   const pathname = target.getAttribute("href")
 
   window.history.pushState({}, pathname, window.location.origin + pathname);
-  setTemplate(pathname)
+  //setTemplate(pathname)
 };
 
 window.onpopstate = () => {
