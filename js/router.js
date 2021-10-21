@@ -1,7 +1,16 @@
 import {makeRows} from "./b.js"
+import {showUser} from "./user.js"
 
 //Your index.html must include an empty div with id= "content"
 const content = document.getElementById('content');
+
+function getPathWithoutParameterPart(){
+  let pathname = window.location.hash
+  if(pathname.includes("/##")){
+    pathname = pathname.substring(0,pathname.indexOf("/##")+3)
+  }
+  return pathname;
+}
 
 //The top-level of your navigation structure must include an id="topnav"
 const topnav = document.getElementById("topnav");
@@ -38,6 +47,11 @@ async function initRoutes() {
       templateFile: "templates/cTemplate.html",
       templateId: "c-template",
     },
+    '#/user/##': {
+      templateFile: "templates/showUser.html",
+      templateId: "show-user-template",
+      afterRender: [showUser]
+    },
     '#/404': {
       templateFile: "templates/404.html",
       templateId: "error-template"
@@ -58,8 +72,8 @@ async function initRoutes() {
   }
 
   //Set initial page
-  const pathname = window.location.hash
-  setTemplate(pathname)
+  let pathName = getPathWithoutParameterPart();
+  setTemplate(pathName)
 }
 
 document.addEventListener("DOMContentLoaded", () => initRoutes());
@@ -76,8 +90,8 @@ function onNavClick(evt) {
 };
 
 window.onpopstate = () => {
-  const pathname = window.location.hash
-  setTemplate(pathname)
+  const pathName = getPathWithoutParameterPart();
+  setTemplate(pathName)
 };
 
 function setTemplate(path) {

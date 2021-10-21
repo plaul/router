@@ -10,7 +10,8 @@ export function makeRows() {
         const template = document.querySelector('#rows');
         const clone = template.content.cloneNode(true);
         let tds = clone.querySelectorAll("td");
-        tds[0].textContent = row.id
+        //tds[0].textContent = row.id
+        tds[0].innerHTML = `<a href='#/user/##${row.id}'>${row.id}</a>`
         tds[1].textContent = row.name
         tds[2].textContent = row.username
         tbody.appendChild(clone);
